@@ -1,0 +1,121 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/game/game_run.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/game/floor_tile_map.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/game/obstacle_tile_map.gd" id="3"]
+[ext_resource type="Script" path="res://scripts/game/bean_tile_map.gd" id="4"]
+[ext_resource type="Script" path="res://scripts/game/snake_layer.gd" id="5"]
+[ext_resource type="Script" path="res://scripts/game/preview_layer.gd" id="6"]
+[ext_resource type="PackedScene" path="res://scenes/ui/GameHud.tscn" id="7"]
+[ext_resource type="PackedScene" path="res://scenes/ui/DebugHud.tscn" id="8"]
+[ext_resource type="PackedScene" path="res://scenes/ui/UpgradeOverlay.tscn" id="9"]
+[ext_resource type="Resource" path="res://data/config/run/default_run_config.tres" id="10"]
+[ext_resource type="Script" path="res://scripts/game/score_popup_layer.gd" id="11"]
+
+[node name="GameRun" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+fallback_run_config = ExtResource("10")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0627451, 0.0941176, 0.109804, 1)
+
+[node name="BoardRoot" type="Node2D" parent="."]
+position = Vector2(32, 50)
+
+[node name="FloorTileMap" type="Node2D" parent="BoardRoot"]
+script = ExtResource("2")
+
+[node name="ObstacleTileMap" type="Node2D" parent="BoardRoot"]
+script = ExtResource("3")
+
+[node name="BeanTileMap" type="Node2D" parent="BoardRoot"]
+script = ExtResource("4")
+
+[node name="SnakeLayer" type="Node2D" parent="BoardRoot"]
+script = ExtResource("5")
+
+[node name="PreviewLayer" type="Node2D" parent="BoardRoot"]
+script = ExtResource("6")
+
+[node name="ScorePopupLayer" type="Node2D" parent="BoardRoot"]
+script = ExtResource("11")
+
+[node name="HudRoot" parent="." instance=ExtResource("7")]
+offset_left = 864.0
+offset_top = 32.0
+offset_right = 1548.0
+offset_bottom = 860.0
+
+[node name="DebugHud" parent="." instance=ExtResource("8")]
+offset_left = 864.0
+offset_top = 668.0
+offset_right = 1284.0
+offset_bottom = 848.0
+
+[node name="UpgradeOverlay" parent="." instance=ExtResource("9")]
+
+[node name="PauseOverlay" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Shade" type="ColorRect" parent="PauseOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.45)
+
+[node name="CenterContainer" type="CenterContainer" parent="PauseOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="PauseOverlay/CenterContainer"]
+custom_minimum_size = Vector2(360, 140)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseOverlay/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 18
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseOverlay/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TitleLabel" type="Label" parent="PauseOverlay/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 26
+text = "已暂停"
+
+[node name="HintLabel" type="Label" parent="PauseOverlay/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+autowrap_mode = 2
+text = "按 P 继续，按 Esc 返回主菜单。"

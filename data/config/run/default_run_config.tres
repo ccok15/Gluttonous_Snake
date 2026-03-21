@@ -1,0 +1,58 @@
+[gd_resource type="Resource" script_class="RunConfig" load_steps=23 format=3]
+
+[ext_resource type="Script" path="res://scripts/core/run_config.gd" id="1"]
+[ext_resource type="Resource" path="res://data/config/stages/stage_01.tres" id="2"]
+[ext_resource type="Resource" path="res://data/config/stages/stage_02.tres" id="3"]
+[ext_resource type="Resource" path="res://data/config/stages/stage_03.tres" id="4"]
+[ext_resource type="Resource" path="res://data/config/stages/stage_04.tres" id="5"]
+[ext_resource type="Resource" path="res://data/config/stages/stage_05.tres" id="6"]
+[ext_resource type="Resource" path="res://data/config/stages/stage_06.tres" id="7"]
+[ext_resource type="Resource" path="res://data/config/stages/stage_07.tres" id="8"]
+[ext_resource type="Resource" path="res://data/config/stages/stage_08.tres" id="9"]
+[ext_resource type="Resource" path="res://data/config/stages/stage_09.tres" id="10"]
+[ext_resource type="Resource" path="res://data/config/stages/stage_10.tres" id="11"]
+[ext_resource type="Resource" path="res://data/config/stages/stage_11.tres" id="12"]
+[ext_resource type="Resource" path="res://data/config/stages/stage_12.tres" id="13"]
+[ext_resource type="Resource" path="res://data/config/upgrades/lean_growth.tres" id="15"]
+[ext_resource type="Resource" path="res://data/config/upgrades/micro_magnet.tres" id="16"]
+[ext_resource type="Resource" path="res://data/config/upgrades/move_speed_up.tres" id="17"]
+[ext_resource type="Resource" path="res://data/config/upgrades/dash_burst.tres" id="18"]
+[ext_resource type="Resource" path="res://data/config/upgrades/critical_bean_floor.tres" id="19"]
+[ext_resource type="Resource" path="res://data/config/upgrades/critical_bean_ceiling.tres" id="20"]
+[ext_resource type="Resource" path="res://data/config/upgrades/critical_bean_duration.tres" id="21"]
+[ext_resource type="Resource" path="res://data/config/upgrades/wall_phase.tres" id="22"]
+[ext_resource type="Resource" path="res://data/config/localization/zh_cn_language_pack.tres" id="23"]
+
+[resource]
+script = ExtResource("1")
+board_size = Vector2i(20, 20)
+cell_size = 12
+default_bean_count = 4
+initial_snake_length = 4
+initial_direction = "RIGHT"
+initial_step_interval_ms = 90
+minimum_step_interval_ms = 30
+dash_distance = 3
+dash_double_tap_window_seconds = 0.22
+critical_bean_initial_min_score = 5
+critical_bean_initial_max_score = 10
+critical_bean_lifetime_seconds = 5.0
+critical_bean_lifetime_upgrade_seconds = 3.0
+critical_bean_spawn_interval_seconds = 8.0
+critical_bean_spawn_interval_random_seconds = 4.0
+critical_bean_max_active = 1
+post_upgrade_invulnerability_seconds = 0.5
+stage_transition_pause_seconds = 0.5
+initial_stage_time_seconds = 60.0
+stage_clear_bonus_seconds = 60.0
+default_locale = &"zh_CN"
+level_thresholds = [1, 6, 14, 25, 39, 56, 76, 99, 125, 154, 186, 221, 259, 300, 344, 391, 441, 494, 550]
+level_threshold_overflow_step = 3
+overflow_score_increment_start = 35
+overflow_score_increment_step = 5
+default_upgrade_weight = 1
+move_speed_up_weight = 3
+pause_key = "P"
+stage_configs = [ExtResource("2"), ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6"), ExtResource("7"), ExtResource("8"), ExtResource("9"), ExtResource("10"), ExtResource("11"), ExtResource("12"), ExtResource("13")]
+upgrade_defs = [ExtResource("15"), ExtResource("16"), ExtResource("17"), ExtResource("18"), ExtResource("19"), ExtResource("20"), ExtResource("21"), ExtResource("22")]
+language_packs = [ExtResource("23")]

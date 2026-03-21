@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UpgradeDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/core/upgrade_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+upgrade_id = &"lean_growth"
+display_name = "轻量成长"
+base_description = "有时只加分和经验，不增长身体。"
+option_description_template = "每 {cycle} 次吃豆里，有 {value} 次不增长身体。"
+summary_template = "{name} 每 {value} 次跳过 1 次增长"
+max_level = 3
+level_values = [4, 3, 2]

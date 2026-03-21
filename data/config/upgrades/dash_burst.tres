@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UpgradeDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/core/upgrade_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+upgrade_id = &"dash_burst"
+display_name = "突进"
+base_description = "快速连按同一方向键，可朝该方向突进 3 格。初始冷却 10 秒。"
+option_description_template = "把突进冷却缩短到 {value} 秒。"
+summary_template = "{name} {value} 秒冷却"
+max_level = 5
+level_values = [10, 9, 8, 7, 6]

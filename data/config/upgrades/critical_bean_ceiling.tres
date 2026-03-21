@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UpgradeDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/core/upgrade_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+upgrade_id = &"critical_bean_ceiling"
+display_name = "暴击豆上限"
+base_description = "暴击豆最高分初始为 10 分，升级后提高理论上限，但越高分越难出现。"
+option_description_template = "把暴击豆的最高得分提升到 {value} 分。"
+summary_template = "{name} 最高 {value} 分"
+max_level = 10
+level_values = [20, 30, 40, 50, 60, 70, 80, 90, 100, 110]

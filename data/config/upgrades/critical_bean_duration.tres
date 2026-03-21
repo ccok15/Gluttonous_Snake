@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UpgradeDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/core/upgrade_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+upgrade_id = &"critical_bean_duration"
+display_name = "暴击豆留存"
+base_description = "暴击豆初始只存在 5 秒，升级后可延长停留时间。"
+option_description_template = "把暴击豆的存在时间延长到 {value} 秒。"
+summary_template = "{name} {value} 秒"
+max_level = 10
+level_values = [8, 11, 14, 17, 20, 23, 26, 29, 32, 35]

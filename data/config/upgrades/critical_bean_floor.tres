@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UpgradeDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/core/upgrade_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+upgrade_id = &"critical_bean_floor"
+display_name = "暴击豆下限"
+base_description = "暴击豆最低分初始为 5 分，升级后继续抬高保底得分。"
+option_description_template = "把暴击豆的最低得分提升到 {value} 分。"
+summary_template = "{name} 最低 {value} 分"
+max_level = 10
+level_values = [8, 11, 14, 17, 20, 23, 26, 29, 32, 35]

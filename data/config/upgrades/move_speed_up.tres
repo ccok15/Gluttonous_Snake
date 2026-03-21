@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UpgradeDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/core/upgrade_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+upgrade_id = &"move_speed_up"
+display_name = "移动加速"
+base_description = "基于初始速度，累计缩短每一步之间的时间间隔。"
+option_description_template = "相对初始速度，累计缩短 {value} 毫秒。"
+summary_template = "{name} 累计 -{value} 毫秒"
+max_level = 10
+level_values = [15, 30, 45, 60, 75, 90, 105, 120, 135, 150]
