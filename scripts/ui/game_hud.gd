@@ -4,28 +4,29 @@ class_name GameHud
 signal restart_requested
 
 @onready var header_label: Label = $MarginContainer/VBoxContainer/HeaderLabel
-@onready var stage_value: Label = $MarginContainer/VBoxContainer/StageValue
-@onready var score_value: Label = $MarginContainer/VBoxContainer/ScoreValue
-@onready var time_value: Label = $MarginContainer/VBoxContainer/TimeValue
-@onready var level_value: Label = $MarginContainer/VBoxContainer/LevelValue
-@onready var length_value: Label = $MarginContainer/VBoxContainer/LengthValue
-@onready var speed_value: Label = $MarginContainer/VBoxContainer/SpeedValue
-@onready var dash_value: Label = $MarginContainer/VBoxContainer/DashValue
-@onready var bean_score_value: Label = $MarginContainer/VBoxContainer/BeanScoreValue
-@onready var critical_bean_value: Label = $MarginContainer/VBoxContainer/CriticalBeanValue
-@onready var wall_phase_value: Label = $MarginContainer/VBoxContainer/WallPhaseValue
-@onready var upgrades_header: Label = $MarginContainer/VBoxContainer/UpgradesHeader
-@onready var upgrades_value: Label = $MarginContainer/VBoxContainer/UpgradesValue
-@onready var status_header: Label = $MarginContainer/VBoxContainer/StatusHeader
-@onready var protection_value: Label = $MarginContainer/VBoxContainer/ProtectionValue
-@onready var status_value: Label = $MarginContainer/VBoxContainer/StatusValue
-@onready var hint_header: Label = $MarginContainer/VBoxContainer/HintHeader
-@onready var hint_value: Label = $MarginContainer/VBoxContainer/HintValue
+@onready var stage_value: Label = $MarginContainer/VBoxContainer/StatsColumns/LeftStats/StageValue
+@onready var score_value: Label = $MarginContainer/VBoxContainer/StatsColumns/LeftStats/ScoreValue
+@onready var time_value: Label = $MarginContainer/VBoxContainer/StatsColumns/LeftStats/TimeValue
+@onready var level_value: Label = $MarginContainer/VBoxContainer/StatsColumns/LeftStats/LevelValue
+@onready var length_value: Label = $MarginContainer/VBoxContainer/StatsColumns/LeftStats/LengthValue
+@onready var speed_value: Label = $MarginContainer/VBoxContainer/StatsColumns/RightStats/SpeedValue
+@onready var dash_value: Label = $MarginContainer/VBoxContainer/StatsColumns/RightStats/DashValue
+@onready var bean_score_value: Label = $MarginContainer/VBoxContainer/StatsColumns/RightStats/BeanScoreValue
+@onready var critical_bean_value: Label = $MarginContainer/VBoxContainer/StatsColumns/RightStats/CriticalBeanValue
+@onready var wall_phase_value: Label = $MarginContainer/VBoxContainer/StatsColumns/RightStats/WallPhaseValue
+@onready var protection_value: Label = $MarginContainer/VBoxContainer/StatsColumns/RightStats/ProtectionValue
+@onready var upgrades_header: Label = $MarginContainer/VBoxContainer/DetailColumns/LeftColumn/UpgradesHeader
+@onready var upgrades_value: Label = $MarginContainer/VBoxContainer/DetailColumns/LeftColumn/UpgradesValue
+@onready var status_header: Label = $MarginContainer/VBoxContainer/DetailColumns/RightColumn/StatusHeader
+@onready var status_value: Label = $MarginContainer/VBoxContainer/DetailColumns/RightColumn/StatusValue
+@onready var hint_header: Label = $MarginContainer/VBoxContainer/DetailColumns/RightColumn/HintHeader
+@onready var hint_value: Label = $MarginContainer/VBoxContainer/DetailColumns/RightColumn/HintValue
 @onready var restart_button: Button = $MarginContainer/VBoxContainer/RestartButton
 
 func _ready() -> void:
 	GameApp.locale_changed.connect(_on_locale_changed)
 	restart_button.pressed.connect(_on_restart_button_pressed)
+	wall_phase_value.visible = false
 	_refresh_headers()
 
 func update_view(data: Dictionary) -> void:
@@ -42,7 +43,6 @@ func update_view(data: Dictionary) -> void:
 		"Normal Bean +%d (Last +%d)" % [data.get("normal_bean_score", 1), data.get("last_bean_score_gain", 1)]
 	)
 	critical_bean_value.text = data.get("critical_bean_status", GameApp.tr_key(&"hud.critical_bean_inactive", {}, "暴击豆未出现"))
-	wall_phase_value.text = GameApp.tr_key(&"hud.wall_phase", {"value": data.get("wall_phase_charges", 0)}, "Wall Phase %d" % data.get("wall_phase_charges", 0))
 	protection_value.text = GameApp.tr_key(&"hud.protection", {"value": "%.1f" % data.get("protection_left", 0.0)}, "Protection %.1fs" % data.get("protection_left", 0.0))
 	upgrades_value.text = data.get("upgrade_summary", GameApp.tr_key(&"hud.no_upgrades", {}, "No upgrades yet."))
 	status_value.text = data.get("status_text", "")

@@ -233,7 +233,7 @@ func _advance_snake_one_step(skip_buffered_direction: bool = false) -> bool:
 	var movement_result := _resolve_next_head(direction)
 	var next_head: Vector2i = movement_result["head"]
 	var collision_reason: StringName = movement_result["collision_reason"]
-	if movement_result["used_wall_phase"]:
+	if movement_result["used_traversal"]:
 		wall_phase_charges = max(wall_phase_charges - 1, 0)
 	if collision_reason != &"":
 		if _can_block_collision(next_head):
@@ -278,23 +278,25 @@ func _consume_buffered_direction() -> void:
 
 func _resolve_next_head(step_direction: Vector2i) -> Dictionary:
 	var raw_next_head := snake_cells[0] + step_direction
+	var resolved_head := raw_next_head
+	var used_traversal := false
 	if _is_out_of_bounds(raw_next_head):
 		if wall_phase_charges <= 0:
 			return {
 				"head": raw_next_head,
 				"collision_reason": &"wall",
-				"used_wall_phase": false,
+				"used_traversal": false,
 			}
-		var wrapped_head := _wrap_cell(raw_next_head)
-		return {
-			"head": wrapped_head,
-			"collision_reason": _get_non_wall_collision_reason(wrapped_head),
-			"used_wall_phase": true,
-		}
+		resolved_head = _wrap_cell(raw_next_head)
+		used_traversal = true
+	var collision_reason := _get_non_wall_collision_reason(resolved_head)
+	if collision_reason == &"self" and (used_traversal or wall_phase_charges > 0):
+		collision_reason = &""
+		used_traversal = true
 	return {
-		"head": raw_next_head,
-		"collision_reason": _get_non_wall_collision_reason(raw_next_head),
-		"used_wall_phase": false,
+		"head": resolved_head,
+		"collision_reason": collision_reason,
+		"used_traversal": used_traversal,
 	}
 
 func _get_collision_reason(next_head: Vector2i) -> StringName:
@@ -370,7 +372,6 @@ func _maybe_absorb_nearby_bean() -> void:
 	var head := snake_cells[0]
 	var nearest_distance := 1000000
 	var nearest_index := -1
-	var absorb_critical := false
 	for index in range(beans.size()):
 		var bean_position := beans[index]
 		var distance: int = abs(bean_position.x - head.x) + abs(bean_position.y - head.y)
@@ -379,16 +380,6 @@ func _maybe_absorb_nearby_bean() -> void:
 		if distance < nearest_distance:
 			nearest_distance = distance
 			nearest_index = index
-	if critical_bean_active:
-		var critical_distance: int = abs(critical_bean_position.x - head.x) + abs(critical_bean_position.y - head.y)
-		if critical_distance > 0 and critical_distance <= current_magnet_radius and critical_distance < nearest_distance:
-			nearest_distance = critical_distance
-			absorb_critical = true
-	if absorb_critical:
-		var critical_growth := _consume_critical_bean()
-		if critical_growth:
-			growth_pending += 1
-		return
 	if nearest_index >= 0:
 		var should_grow := _consume_bean_at_index(nearest_index)
 		if should_grow:
@@ -637,7 +628,7 @@ func _refresh_preview() -> void:
 
 func _refresh_all_views() -> void:
 	_refresh_bean_visuals()
-	snake_layer.set_snake(snake_cells, run_config.cell_size, protection_left > 0.0, wall_phase_charges)
+	snake_layer.set_snake(snake_cells, run_config.cell_size, protection_left > 0.0, wall_phase_charges > 0)
 	_refresh_preview()
 	_refresh_ui()
 
@@ -675,6 +666,15 @@ func _build_upgrade_summary() -> String:
 	for definition in run_config.upgrade_defs:
 		var current_level := int(upgrade_levels.get(definition.upgrade_id, 0))
 		if current_level <= 0:
+			continue
+		if definition.upgrade_id == &"wall_phase":
+			summaries.append(
+				_tr(
+					&"upgrade.wall_phase.summary",
+					{"name": definition.get_localized_name(), "value": wall_phase_charges},
+					"%s %d charges" % [definition.get_localized_name(), wall_phase_charges]
+				)
+			)
 			continue
 		summaries.append(definition.get_applied_summary(current_level))
 	if summaries.is_empty():

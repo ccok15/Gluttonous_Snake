@@ -15,88 +15,130 @@ theme_override_constants/margin_bottom = 18
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 14
 
 [node name="HeaderLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "运行状态"
 
-[node name="StageValue" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="StatsColumns" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="LeftStats" type="VBoxContainer" parent="MarginContainer/VBoxContainer/StatsColumns"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="StageValue" type="Label" parent="MarginContainer/VBoxContainer/StatsColumns/LeftStats"]
+layout_mode = 2
+autowrap_mode = 2
 text = "阶段 1"
 
-[node name="ScoreValue" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="ScoreValue" type="Label" parent="MarginContainer/VBoxContainer/StatsColumns/LeftStats"]
 layout_mode = 2
+autowrap_mode = 2
 text = "分数 0 / 30"
 
-[node name="TimeValue" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="TimeValue" type="Label" parent="MarginContainer/VBoxContainer/StatsColumns/LeftStats"]
 layout_mode = 2
+autowrap_mode = 2
 text = "剩余时间 03:00.0"
 
-[node name="LevelValue" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="LevelValue" type="Label" parent="MarginContainer/VBoxContainer/StatsColumns/LeftStats"]
 layout_mode = 2
+autowrap_mode = 2
 text = "等级 1  经验 0 / 8"
 
-[node name="LengthValue" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="LengthValue" type="Label" parent="MarginContainer/VBoxContainer/StatsColumns/LeftStats"]
 layout_mode = 2
+autowrap_mode = 2
 text = "蛇身长度 4"
 
-[node name="SpeedValue" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="RightStats" type="VBoxContainer" parent="MarginContainer/VBoxContainer/StatsColumns"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="SpeedValue" type="Label" parent="MarginContainer/VBoxContainer/StatsColumns/RightStats"]
+layout_mode = 2
+autowrap_mode = 2
 text = "移动间隔 90 毫秒/步"
 
-[node name="DashValue" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="DashValue" type="Label" parent="MarginContainer/VBoxContainer/StatsColumns/RightStats"]
 layout_mode = 2
+autowrap_mode = 2
 text = "突进 就绪"
 
-[node name="BeanScoreValue" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="BeanScoreValue" type="Label" parent="MarginContainer/VBoxContainer/StatsColumns/RightStats"]
 layout_mode = 2
+autowrap_mode = 2
 text = "普通豆 +1（上次 +1）"
 
-[node name="CriticalBeanValue" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="CriticalBeanValue" type="Label" parent="MarginContainer/VBoxContainer/StatsColumns/RightStats"]
 layout_mode = 2
+autowrap_mode = 2
 text = "暴击豆 5~10（下次 08.0 秒）"
 
-[node name="WallPhaseValue" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="WallPhaseValue" type="Label" parent="MarginContainer/VBoxContainer/StatsColumns/RightStats"]
+visible = false
 layout_mode = 2
-text = "穿墙次数 0"
+autowrap_mode = 2
+text = "穿越术已激活"
 
-[node name="ProtectionValue" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="ProtectionValue" type="Label" parent="MarginContainer/VBoxContainer/StatsColumns/RightStats"]
 layout_mode = 2
+autowrap_mode = 2
 text = "保护时间 0.0 秒"
 
-[node name="UpgradesHeader" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="DetailColumns" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="LeftColumn" type="VBoxContainer" parent="MarginContainer/VBoxContainer/DetailColumns"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="UpgradesHeader" type="Label" parent="MarginContainer/VBoxContainer/DetailColumns/LeftColumn"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "已选升级"
 
-[node name="UpgradesValue" type="Label" parent="MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 200)
+[node name="UpgradesValue" type="Label" parent="MarginContainer/VBoxContainer/DetailColumns/LeftColumn"]
 layout_mode = 2
+size_flags_horizontal = 3
 autowrap_mode = 2
 text = "尚未选择升级。"
 vertical_alignment = 0
 
-[node name="StatusHeader" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="RightColumn" type="VBoxContainer" parent="MarginContainer/VBoxContainer/DetailColumns"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="StatusHeader" type="Label" parent="MarginContainer/VBoxContainer/DetailColumns/RightColumn"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "状态"
 
-[node name="StatusValue" type="Label" parent="MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 80)
+[node name="StatusValue" type="Label" parent="MarginContainer/VBoxContainer/DetailColumns/RightColumn"]
+custom_minimum_size = Vector2(0, 72)
 layout_mode = 2
+size_flags_horizontal = 3
 autowrap_mode = 2
 text = "继续吃豆并达成当前阶段分数目标。"
 
-[node name="HintHeader" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="HintHeader" type="Label" parent="MarginContainer/VBoxContainer/DetailColumns/RightColumn"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "提示"
 
-[node name="HintValue" type="Label" parent="MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 80)
+[node name="HintValue" type="Label" parent="MarginContainer/VBoxContainer/DetailColumns/RightColumn"]
+custom_minimum_size = Vector2(0, 72)
 layout_mode = 2
+size_flags_horizontal = 3
 autowrap_mode = 2
 text = "使用 WASD 或方向键移动。Esc 返回主菜单，F1 切换调试 HUD。"
 

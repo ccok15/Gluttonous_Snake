@@ -5,9 +5,9 @@
 [resource]
 script = ExtResource("1")
 upgrade_id = &"wall_phase"
-display_name = "穿墙术"
-base_description = "获得可消耗的穿墙次数。撞墙时优先消耗次数，并在蛇头附近显示剩余次数。"
-option_description_template = "额外获得 {value} 次可消耗的穿墙次数。"
+display_name = "穿越术"
+base_description = "获得可消耗的穿越次数。撞墙时可穿越到另一侧，撞到自身时也可直接穿过一次。"
+option_description_template = "增加 1 次穿越机会。"
 summary_template = "{name} {value} 次"
 max_level = 10
 level_values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]

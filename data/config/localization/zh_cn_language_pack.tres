@@ -24,7 +24,7 @@ entries = {
 "debug.state_stage_pause": "阶段停顿",
 "debug.state_unknown": "未知",
 "debug.state_upgrade_choice": "升级选择中",
-"debug.wall_phase_charges": "穿墙剩余：{value}",
+"debug.wall_phase_charges": "穿越剩余：{value}",
 "game_over.generic": "本局结束。",
 "game_over.obstacle": "本局结束：撞到了障碍。",
 "game_over.quota_failed": "本局结束：阶段时间耗尽，未达到目标分数。",
@@ -54,7 +54,7 @@ entries = {
 "hud.stage": "阶段 {value}",
 "hud.status": "状态",
 "hud.time": "剩余时间 {value}",
-"hud.wall_phase": "穿墙次数 {value}",
+"hud.wall_phase": "穿越术已激活",
 "menu.best_score": "最高分",
 "menu.continue_soon": "继续游戏（后续加入）",
 "menu.quit": "退出游戏",
@@ -94,7 +94,7 @@ entries = {
 "upgrade.move_speed_up.option_desc": "相对初始速度，累计缩短 {value} 毫秒。",
 "upgrade.move_speed_up.summary": "{name} 累计 -{value} 毫秒",
 "upgrade.option_title": "{name} · 等级 {level}",
-"upgrade.wall_phase.name": "穿墙术",
-"upgrade.wall_phase.option_desc": "额外获得 {value} 次可消耗的穿墙次数。",
+"upgrade.wall_phase.name": "穿越术",
+"upgrade.wall_phase.option_desc": "增加 1 次穿越机会。",
 "upgrade.wall_phase.summary": "{name} {value} 次"
 }
