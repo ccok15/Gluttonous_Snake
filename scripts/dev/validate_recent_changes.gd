@@ -14,10 +14,10 @@ func _ready() -> void:
 func _run() -> void:
 	_bootstrap_game_app()
 	_test_move_speed_weight()
-	await _test_critical_bean_ignores_magnet()
-	await _test_wall_traversal()
-	await _test_self_traversal()
-	await _test_traversal_visuals_and_hidden_counter()
+	_test_critical_bean_ignores_magnet()
+	_test_wall_traversal()
+	_test_self_traversal()
+	_test_traversal_visuals_and_hidden_counter()
 	_test_traversal_upgrade_copy()
 	_finish()
 
@@ -38,7 +38,7 @@ func _test_move_speed_weight() -> void:
 	)
 
 func _test_critical_bean_ignores_magnet() -> void:
-	var run = await _spawn_game_run()
+	var run := _spawn_game_run()
 	run.current_magnet_radius = 2
 	var snake_cells: Array[Vector2i] = [Vector2i(5, 5), Vector2i(4, 5), Vector2i(3, 5)]
 	var beans: Array[Vector2i] = [Vector2i(5, 7)]
@@ -57,10 +57,10 @@ func _test_critical_bean_ignores_magnet() -> void:
 		run.score == 1 and run._find_bean_index(Vector2i(5, 7)) == -1,
 		"normal bean still gets absorbed when critical bean is nearby"
 	)
-	await _cleanup_run(run)
+	_cleanup_run(run)
 
 func _test_wall_traversal() -> void:
-	var run = await _spawn_game_run()
+	var run := _spawn_game_run()
 	run.current_board_size = Vector2i(10, 10)
 	var snake_cells: Array[Vector2i] = [Vector2i(9, 5), Vector2i(8, 5), Vector2i(7, 5)]
 	run.snake_cells = snake_cells
@@ -76,10 +76,10 @@ func _test_wall_traversal() -> void:
 	_expect(run.state == run.RunState.ACTIVE, "wall traversal keeps the run active")
 	_expect(run.snake_cells[0] == Vector2i(0, 5), "wall traversal wraps the head to the opposite side")
 	_expect(run.wall_phase_charges == 0, "wall traversal consumes exactly one traversal charge")
-	await _cleanup_run(run)
+	_cleanup_run(run)
 
 func _test_self_traversal() -> void:
-	var run = await _spawn_game_run()
+	var run := _spawn_game_run()
 	run.current_board_size = Vector2i(10, 10)
 	var snake_cells: Array[Vector2i] = [Vector2i(2, 2), Vector2i(3, 2), Vector2i(3, 3), Vector2i(2, 3)]
 	run.snake_cells = snake_cells
@@ -95,10 +95,10 @@ func _test_self_traversal() -> void:
 	_expect(run.state == run.RunState.ACTIVE, "self traversal keeps the run active")
 	_expect(run.snake_cells[0] == Vector2i(3, 2), "self traversal allows entering the occupied body cell")
 	_expect(run.wall_phase_charges == 0, "self traversal consumes exactly one traversal charge")
-	await _cleanup_run(run)
+	_cleanup_run(run)
 
 func _test_traversal_visuals_and_hidden_counter() -> void:
-	var run = await _spawn_game_run()
+	var run := _spawn_game_run()
 	run.upgrade_levels[&"wall_phase"] = 1
 	run.wall_phase_charges = 1
 	run._refresh_all_views()
@@ -109,7 +109,7 @@ func _test_traversal_visuals_and_hidden_counter() -> void:
 	run._refresh_all_views()
 	_expect(not run.snake_layer._traversal_available, "snake head visual resets when traversal is exhausted")
 	_expect(run._build_upgrade_summary().contains("穿越术 0 次"), "upgrade summary updates after traversal charges are consumed")
-	await _cleanup_run(run)
+	_cleanup_run(run)
 
 func _test_traversal_upgrade_copy() -> void:
 	_expect(WALL_PHASE_DEF.get_localized_name() == "穿越术", "traversal upgrade is renamed in localized copy")
@@ -119,14 +119,11 @@ func _test_traversal_upgrade_copy() -> void:
 func _spawn_game_run() -> GameRun:
 	var run: GameRun = GAME_RUN_SCENE.instantiate()
 	get_tree().root.add_child(run)
-	await get_tree().process_frame
-	await get_tree().process_frame
 	return run
 
 func _cleanup_run(run: GameRun) -> void:
 	if is_instance_valid(run):
-		run.queue_free()
-	await get_tree().process_frame
+		run.free()
 
 func _expect(condition: bool, description: String) -> void:
 	if condition:
